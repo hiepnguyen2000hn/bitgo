@@ -6,12 +6,16 @@ export async function GET() {
     try {
         const wallets = await bitgo.coin('tbtc').wallets().list();
 
-        const walletsData = wallets.wallets.map(wallet => ({
+        const walletsData = wallets.wallets.map(wallet =>
+
+        {
+            console.log(wallet, 'wallet')
+            return({
             id: wallet.id(),
             label: wallet.label(),
             balance: wallet.balanceString(),
             address: wallet.receiveAddress(),
-        }));
+        })});
 
         return NextResponse.json({ success: true, data: walletsData });
     } catch (error) {

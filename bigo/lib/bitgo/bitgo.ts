@@ -2,7 +2,7 @@
 import { BitGo } from 'bitgo';
 
 export const bitgo = new BitGo({
-    env: process.env.BITGO_ENV as 'test' | 'prod',
+    env: 'test',
     accessToken: process.env.BITGO_ACCESS_TOKEN,
 });
 

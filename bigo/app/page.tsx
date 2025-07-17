@@ -73,6 +73,36 @@ export default function WalletDashboard() {
         }
     };
 
+    const createMCPwallet = async (wallet: Wallet) => {
+        const result = await fetch('/api/wallet/create-mpc', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                label: 'My MPC Wallet',
+                passphrase: 'secure-passphrase',
+                coin: 'tbtc'
+            })
+        })
+        console.log(result, 'result');
+    }
+
+    const createMulTiSigWallet = async () => {
+        const result = await fetch('/api/wallet/create-multisig', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                label: 'My MultiSig Wallet',
+                passphrase: 'very-secure-passphrase',
+                coin: 'tbtc',
+                requiredSigners: 2,
+                totalSigners: 3,
+                enterprise: '68774d75387cee7d67986fd919522856',
+                type: 'hot'
+            })
+        })
+        console.log(result, 'result');
+    }
+
     return (
         <div className="max-w-4xl mx-auto p-6">
             <h1 className="text-2xl font-bold mb-6">BitGo Wallet Dashboard</h1>
@@ -95,6 +125,8 @@ export default function WalletDashboard() {
                     </div>
                 ))}
             </div>
+            <div onClick={createMCPwallet}>createMcp</div>
+            <div onClick={createMulTiSigWallet}>createMultisig</div>
 
             {/* Send Transaction */}
             {selectedWallet && (
